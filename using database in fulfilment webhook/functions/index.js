@@ -13,10 +13,11 @@ var firestore = admin.firestore();
 exports.webhook = functions.https.onRequest((request, response) => {
 
     switch (request.body.queryResult.action) {
+
         case 'bookRoom':
             console.log("request.body.result.parameters: ", request.body.queryResult.parameters);
 
-            let params = request.body.queryResult.parameters;
+            var params = request.body.queryResult.parameters;
             firestore.collection("orders").add(params)
                 .then(() => {
                     response.send({
@@ -40,10 +41,10 @@ exports.webhook = functions.https.onRequest((request, response) => {
                     var orders = [];
                     querySnapshot.forEach((doc) => { orders.push(doc.data()) });
 
-                    var speech = `You have ${params.length} orders \n`;
+                    var speech = `You have ${orders.length} orders \n`;
 
                     orders.forEach((eachOrder, index) => {
-                        speech += `number ${index + 1} is ${params.roomType} room for ${params.persons} persons, ordered by ${params.name} and contact email is ${params.email} \n`;
+                        speech += `number ${index + 1} is ${eachOrder.roomType} room for ${eachOrder.persons} persons, ordered by ${eachOrder.name} and contact email is ${params.email} \n`;
                     })
 
                     response.send({
