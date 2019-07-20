@@ -1,5 +1,5 @@
 const functions = require('firebase-functions');
-const admin = require("firebase-admin");
+var admin = require("firebase-admin");
 
 admin.initializeApp(functions.config().firebase);
 
@@ -34,6 +34,54 @@ exports.webhook = functions.https.onRequest((request, response) => {
                 });
             break;
 
+        case 'countBooking':
+            firestore.collection('orders').get()
+                .then((querySnapshot) => {
+
+                    var orders = [];
+                    querySnapshot.forEach((doc) => { orders.push(doc.data()) });
+
+                    response.send({
+                        fulfillmentText: `You have ${orders.length} orders, wiuld you like to see them? (Yes/No) \n`
+                    });
+                    return res.status(200);
+                })
+                .catch((err) => {
+                    console.log('Error ', err);
+
+                    response.send({
+                        speech: "something went wrong."
+                    })
+                })
+
+
+
+            // firestore.collection('orders').get()
+            //     .then((querySnapshot) => {
+
+            //         var orders = [];
+            //         querySnapshot.forEach((doc) => { orders.push(doc.data()) });
+
+            //         var speech = `You have ${orders.length} orders \n`;
+
+            //         orders.forEach((eachOrder, index) => {
+            //             speech += `number ${index + 1} is ${eachOrder.roomType} room for ${eachOrder.persons} persons, ordered by ${eachOrder.name} and contact email is ${params.email} \n`;
+            //         })
+
+            //         response.send({
+            //             fulfillmentText: speech
+            //         });
+            //         return res.status(200);
+            //     })
+            //     .catch((err) => {
+            //         console.log('Error in reading data from database.', err);
+            //         response.send({
+            //             fulfillmentText: "Something went wrong while reading data."
+            //         })
+            //     })
+
+            break;
+
         case 'showBooking':
             firestore.collection('orders').get()
                 .then((querySnapshot) => {
@@ -41,10 +89,10 @@ exports.webhook = functions.https.onRequest((request, response) => {
                     var orders = [];
                     querySnapshot.forEach((doc) => { orders.push(doc.data()) });
 
-                    var speech = `You have ${orders.length} orders \n`;
+                    var speech = `Here is your orders \n`;
 
                     orders.forEach((eachOrder, index) => {
-                        speech += `number ${index + 1} is ${eachOrder.roomType} room for ${eachOrder.persons} persons, ordered by ${eachOrder.name} and contact email is ${params.email} \n`;
+                        speech += `/n Number ${index + 1} is ${eachOrder.RoomType} room for ${eachOrder.persons} persons, ordered by ${eachOrder.name} contact email is ${eachOrder.email} \n`
                     })
 
                     response.send({
@@ -53,9 +101,10 @@ exports.webhook = functions.https.onRequest((request, response) => {
                     return res.status(200);
                 })
                 .catch((err) => {
-                    console.log('Error in reading data from database.', err);
+                    console.log('Error getting documents', err);
+
                     response.send({
-                        fulfillmentText: "Something went wrong while reading data."
+                        speech: "something went wrong when reading from database"
                     })
                 })
 
