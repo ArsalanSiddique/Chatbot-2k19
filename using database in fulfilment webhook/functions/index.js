@@ -42,7 +42,7 @@ exports.webhook = functions.https.onRequest((request, response) => {
                     querySnapshot.forEach((doc) => { orders.push(doc.data()) });
 
                     response.send({
-                        fulfillmentText: `You have ${orders.length} orders, wiuld you like to see them? (Yes/No) \n`
+                        fulfillmentText: `You have ${orders.length} orders. would you like to see them ? (yes/no)\n`
                     });
                     return res.status(200);
                 })
@@ -92,7 +92,7 @@ exports.webhook = functions.https.onRequest((request, response) => {
                     var speech = `Here is your orders \n`;
 
                     orders.forEach((eachOrder, index) => {
-                        speech += `/n Number ${index + 1} is ${eachOrder.RoomType} room for ${eachOrder.persons} persons, ordered by ${eachOrder.name} contact email is ${eachOrder.email} \n`
+                        speech += `\n Number ${index + 1} is ${eachOrder.RoomType} room for ${eachOrder.persons} persons, ordered by ${eachOrder.name} contact email is ${eachOrder.email} \n`
                     })
 
                     response.send({
