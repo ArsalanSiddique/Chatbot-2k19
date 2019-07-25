@@ -41,9 +41,66 @@ exports.webhook = functions.https.onRequest((request, response) => {
                     var orders = [];
                     querySnapshot.forEach((doc) => { orders.push(doc.data()) });
 
+                    // response.send({
+                    //     fulfillmentText: `You have ${orders.length} orders. would you like to see them ? (yes/no)\n`
+                    // });
+
+                    // response.send({
+                    //     "payload": {
+                    //       "google": {
+                    //         "expectUserResponse": true,
+                    //         "richResponse": {
+                    //           "items": [
+                    //             {
+                    //               "simpleResponse": {
+                    //                 "textToSpeech": `You have ${orders.length} orders. would you like to see them ?\n`
+                    //               }
+                    //             }
+                    //           ],
+                    //           "suggestions": [
+                    //             {
+                    //               "title": "Yes"
+                    //             },
+                    //             {
+                    //               "title": "No"
+                    //             }
+                    //           ]
+
+                    //         }
+                    //       }
+                    //     }
+                    //   })
+
                     response.send({
-                        fulfillmentText: `You have ${orders.length} orders. would you like to see them ? (yes/no)\n`
-                    });
+                        "fulfillmentText": `You have ${orders.length} orders. would you like to see them ? (yes/no)\n`,
+                        "fulfillmentMessages": [],
+                        "source": "example.com",
+                        "payload": {
+                            "google": {
+                                "expectUserResponse": true,
+                                "richResponse": {
+                                    "items": [
+                                        {
+                                            "simpleResponse": {
+                                                "textToSpeech": `You have ${orders.length} orders. would you like to see them ?\n`
+                                            }
+                                        }
+                                    ],
+                                    "suggestions": [
+                                        {
+                                            "title": "Yes"
+                                        },
+                                        {
+                                            "title": "No"
+                                        }
+                                    ]
+
+                                }
+                            }
+                        }
+                    })
+
+
                     return res.status(200);
                 })
                 .catch((err) => {
@@ -109,6 +166,132 @@ exports.webhook = functions.https.onRequest((request, response) => {
                 })
 
             break;
+
+        case 'images':
+            response.send({
+
+
+                // working with web , facebook
+                "fulfillmentMessages": [
+                    {
+                        "card": {
+                            "title": "card title",
+                            "subtitle": "card text",
+                            "imageUri": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+                            "buttons": [
+                                {
+                                    "text": "button text",
+                                    "postback": "https://assistant.google.com/"
+                                }
+                            ]
+                        }
+                    }
+                ]
+
+
+                // "fulfillmentText": "Here is basic card \n",
+                // "fulfillmentMessages": [],
+                // "source": "example.com",
+                //     "payload": {
+                //       "google": {
+                //         "expectUserResponse": true,
+                //         "richResponse": {
+                //           "items": [
+                //             {
+                //               "simpleResponse": {
+                //                 "textToSpeech": "This is a basic card example."
+                //               }
+                //             },
+                //             {
+                //               "basicCard": {
+                //                 "title": "Title: this is a title",
+                //                 "subtitle": "This is a subtitle",
+                //                 "formattedText": "This is a basic card.  Text in a basic card can include \"quotes\" and\n        most other unicode characters including emoji 📱.  Basic cards also support\n        some markdown formatting like *emphasis* or _italics_, **strong** or\n        __bold__, and ***bold itallic*** or ___strong emphasis___ as well as other\n        things like line  \nbreaks",
+                //                 "image": {
+                //                   "url": "https://example.com/image.png",
+                //                   "accessibilityText": "Image alternate text"
+                //                 },
+                //                 "buttons": [
+                //                   {
+                //                     "title": "This is a button",
+                //                     "openUrlAction": {
+                //                       "url": "https://assistant.google.com/"
+                //                     }
+                //                   }
+                //                 ],
+                //                 "imageDisplayOptions": "CROPPED"
+                //               }
+                //             }
+                //           ]
+                //         }
+                //       }
+                //     }
+            });
+            break;
+
+
+        case "carousel":
+
+
+            //not working
+            response.send({
+                // "fulfillmentMessages": [
+                //     {
+                //         "carousel": {
+                //             "title": "Here is title",
+                //             "description": "description goes here",
+                //             "footer": "footer appears here",
+                //             "image": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+                //             "openUrlAction": "https://www.google.com/"
+                //           }
+                //     }
+                // ]
+
+                // "fulfillmentText": "Here is basic carousel \n",
+                // "fulfillmentMessages": [
+                //     {
+                //       "items": [
+                //         {
+                //           "description": "Option One Description",
+                //           "image": {
+                //             "url": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+                //             "accessibilityText": "Image description for screen readers"
+                //           },
+                //           "optionInfo": {
+                //             "key": "itemOne",
+                //             "synonyms": [
+                //               "thing one",
+                //               "object one"
+                //             ]
+                //           },
+                //           "title": "Option One Title"
+                //         },
+                //         {
+                //           "description": "Option Two Description",
+                //           "image": {
+                //             "url": "https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png",
+                //             "accessibilityText": "Image description for screen readers"
+                //           },
+                //           "optionInfo": {
+                //             "key": "itemTwo",
+                //             "synonyms": [
+                //               "thing two",
+                //               "object two"
+                //             ]
+                //           },
+                //           "title": "Option Two Title"
+                //         }
+                //       ],
+                //       "platform": "google",
+                //       "type": "carousel_card"
+                //     }
+                //   ]
+
+            })
+
+            break;
+
+
 
         default:
             response.send({
