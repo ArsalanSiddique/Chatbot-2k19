@@ -286,12 +286,73 @@ exports.webhook = functions.https.onRequest((request, response) => {
                 //       "type": "carousel_card"
                 //     }
                 //   ]
-
+                "fulfillmentMessages": [
+                    {
+                        "items": [
+                            {
+                                "carouselBrowse": {
+                                    "items": [
+                                        {
+                                            "title": "Option one title",
+                                            "description": "Option one description",
+                                            "footer": "Option one footer",
+                                            "image": {
+                                                "url": "http://imageOneUrl.com",
+                                                "accessibilityText": "Image description for screen readers"
+                                            },
+                                            "openUrlAction": {
+                                                "url": "https://optionOneUrl"
+                                            }
+                                        },
+                                        {
+                                            "title": "Option two title",
+                                            "description": "Option two description",
+                                            "footer": "Option two footer",
+                                            "image": {
+                                                "url": "http://imageTwoUrl.com",
+                                                "accessibilityText": "Image description for screen readers"
+                                            },
+                                            "openUrlAction": {
+                                                "url": "https://optionTwoUrl"
+                                            }
+                                        },
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
             })
 
             break;
 
+        case "mediaResponse":
+            response.send({
 
+
+                // working with web , facebook
+                "fulfillmentMessages": [
+
+                    {
+                        "mediaResponse": {
+                            "mediaType": "AUDIO",
+                            "mediaObjects": [
+                                {
+                                    "contentUrl": "https://storage.googleapis.com/automotive-media/Jazz_In_Paris.mp3",
+                                    "description": "A funky Jazz tune",
+                                    "icon": {
+                                        "url": "https://storage.googleapis.com/automotive-media/album_art.jpg",
+                                        "accessibilityText": "Ocean view"
+                                    },
+                                    "name": "Jazz in Paris"
+                                }
+                            ]
+                        }
+                    }
+                ]
+
+            })
+            break;
 
         default:
             response.send({
