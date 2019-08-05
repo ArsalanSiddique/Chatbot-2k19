@@ -71,59 +71,59 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest(
         }
 
         function packages(agent) {
-            
-            const parms = agent.body.queryResult.queryText;
-            
-            agent.add(`${parms}`);
+            // const parms = agent.queryResult.queryText;
+
+            // agent.add(`${parms}`);
 
 
-            if (parms === "summer special") {
-                agent.add("Your selected package is Summer special, we will contact you soon")
-            } else if (parms === "suite deal") {
-                agent.add("Your selected package is Suite deal, we will contact you soon")
-            } else if (parms === "luxury suite") {
-                agent.add("Your selected package is Luxury suite, we will contact you soon")
-            } else {
-            
-                agent.add(
-                    new Card({
-                        title: `Summer special`,
-                        imageUrl: `https://www.edenhotels.nl/media/images/shutterstock_1433028059.2e16d0ba.original.fill-1280x960.jpg`,
-                        text: ` 1 x overnight stay in a comfortable room \n
+            // if (parms === "summer special") {
+            //     agent.add("Your selected package is Summer special, we will contact you soon")
+            // } else if (parms === "suite deal") {
+            //     agent.add("Your selected package is Suite deal, we will contact you soon")
+            // } else if (parms === "luxury suite") {
+            //     agent.add("Your selected package is Luxury suite, we will contact you soon")
+            // } else {
+
+            agent.add(
+                new Card({
+                    title: `Summer special`,
+                    imageUrl: `https://www.edenhotels.nl/media/images/shutterstock_1433028059.2e16d0ba.original.fill-1280x960.jpg`,
+                    text: ` 1 x overnight stay in a comfortable room \n
                                 Based on two persons`,
-                        buttonText: `See full Package`,
-                        buttonUrl: `https://www.themanorhotelamsterdam.com/en/packages/summer-package/?_ga=2.209328790.587124662.1564954816-1563133300.1564954816`,
-                    })
-                );
+                    buttonText: `See full Package`,
+                    buttonUrl: `https://www.themanorhotelamsterdam.com/en/packages/summer-package/?_ga=2.209328790.587124662.1564954816-1563133300.1564954816`,
+                })
+            );
 
-                agent.add(
-                    new Card({
-                        title: `Luxury suite package`,
-                        imageUrl: `https://www.edenhotels.nl/media/images/EH---CROWN-HOTEL-EINDHOV.2e16d0ba.original.fill-1280x960_ILr7duC.jpg`,
-                        text: ` 1 x overnight stay in a suite \n
+            agent.add(
+                new Card({
+                    title: `Luxury suite package`,
+                    imageUrl: `https://www.edenhotels.nl/media/images/EH---CROWN-HOTEL-EINDHOV.2e16d0ba.original.fill-1280x960_ILr7duC.jpg`,
+                    text: ` 1 x overnight stay in a suite \n
                                 Based on two persons`,
-                        buttonText: `See full Package`,
-                        buttonUrl: `https://www.crownhoteleindhoven.com/en/packages/luxury-suite-package/?_ga=2.209328790.587124662.1564954816-1563133300.1564954816`,
-                    })
-                );
+                    buttonText: `See full Package`,
+                    buttonUrl: `https://www.crownhoteleindhoven.com/en/packages/luxury-suite-package/?_ga=2.209328790.587124662.1564954816-1563133300.1564954816`,
+                })
+            );
 
-                agent.add(
-                    new Card({
-                        title: `Suite deal`,
-                        imageUrl: `https://www.edenhotels.nl/media/images/designhotel-maastricht_3.2e16d0ba.original.fill-1280x960_xC91B0X.jpg`,
-                        text: ` 1 x overnight stay in deluxe room \n
+            agent.add(
+                new Card({
+                    title: `Suite deal`,
+                    imageUrl: `https://www.edenhotels.nl/media/images/designhotel-maastricht_3.2e16d0ba.original.fill-1280x960_xC91B0X.jpg`,
+                    text: ` 1 x overnight stay in deluxe room \n
                                 Based on two persons`,
-                        buttonText: `See full Package`,
-                        buttonUrl: `https://www.designhotelmaastricht.com/en/packages/suite-deal-package/?_ga=2.209328790.587124662.1564954816-1563133300.1564954816`,
+                    buttonText: `See full Package`,
+                    buttonUrl: `https://www.designhotelmaastricht.com/en/packages/suite-deal-package/?_ga=2.209328790.587124662.1564954816-1563133300.1564954816`,
 
-                    })
+                })
 
-                );
-            }
+            );
+
             agent.add(new Suggestion('summer special'));
             agent.add(new Suggestion('Luxury suite'));
             agent.add(new Suggestion('Suite deal'));
             agent.add(new Suggestion('Custom Booking'));
+
         }
 
 
