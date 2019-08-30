@@ -1,4 +1,13 @@
 const functions = require('firebase-functions');
+
+// // Create and Deploy Your First Cloud Functions
+// // https://firebase.google.com/docs/functions/write-firebase-functions
+//
+
+
+
+
+const functions = require('firebase-functions');
 const { WebhookClient } = require('dialogflow-fulfillment');
 const { bodyParser } = require('body-parser');
 var request = require("request");
@@ -20,21 +29,21 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
 
 
     function city_weather(agent) {
-        const city = agent.parameters.city;
-        var url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${weatherApi}`;
+        // const city = agent.parameters.city;
+        // var url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${weatherApi}`;
 
-        request(url, agent => {
-            var weather = JSON.parse(body)
-            if (weather.main === undefined) {
-                agent.add("something went wrong while getting result.")
-            } else {
-                var temCelcius = Math.round(((weather.main.temp - 32) * 5 / 9));
-                var weatherTemp = `${temCelcius}`;
-                var name = `${weather.name}`;
-                var weatherTxt = 'It is ' + `${temCelcius}` + '&#8451; in ' + `${weather.name}` + '.';
-                agent.add(` weather: ${weatherTxt}, error: null, temperature: ${weatherTemp}, city: ${name}`);
-            }
-        })
+        // request(url, agent => {
+        //     var weather = JSON.parse(body)
+        //     if (weather.main === undefined) {
+        //         agent.add("something went wrong while getting result.")
+        //     } else {
+        //         var temCelcius = Math.round(((weather.main.temp - 32) * 5 / 9));
+        //         var weatherTemp = `${temCelcius}`;
+        //         var name = `${weather.name}`;
+        //         var weatherTxt = 'It is ' + `${temCelcius}` + '&#8451; in ' + `${weather.name}` + '.';
+        //         agent.add(` weather: ${weatherTxt}, error: null, temperature: ${weatherTemp}, city: ${name}`);
+        //     }
+        // })
     }
 
     function fallback(agent) {
@@ -43,7 +52,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     }
 
     function welcome(agent) {
-        agent.add("Welcome! Please type your country name.");
+        agent.add("Welcome! I am weather finder Bot, please type your country name.");
     }
 
     let intentMap = new Map();

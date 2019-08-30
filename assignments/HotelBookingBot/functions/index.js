@@ -39,7 +39,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest(
             // getting user info
             const name = agent.parameters.name;
             const date = agent.parameters.date;
-            const mobile = agent.parameters.mobiel;
+            const mobile = agent.parameters.mobile;
             const duration = agent.parameters.duration;
             const peoples = agent.parameters.peoples;
 
